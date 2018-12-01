@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.event.ActionEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -22,18 +24,17 @@ import org.primefaces.model.SortOrder;
  * @param <T>
  */
 public abstract class AbstractFrmBean<T> {
-protected T registro;
 
     public abstract Object clavePorDatos(T object);
 
     public abstract T datosPorClave(String rowKey);
 
     protected abstract AbstractFacade<T> getFacade();
+
     List<T> List = new ArrayList<>();
+    protected T registro;
     protected LazyDataModel<T> modelo;
-
-    public abstract void crearNuevo();
-
+    protected EstadoCRUD estado;
 
     public void inicializar() {
         Modelo();
@@ -42,26 +43,49 @@ protected T registro;
         } else {
             List = Collections.EMPTY_LIST;
         }
-        crearNuevo();
+        estado = EstadoCRUD.NUEVO;
+        this.modelo.setRowIndex(-1);
+        registro = null;
     }
 
-    public void resetRegistro() {
-        setRegistro(null);
-        registro = null;
+    public void onRowSelect(SelectEvent event) {
+        registro = (T) event.getObject();
+        this.estado = EstadoCRUD.EDITAR;
+    }
+
+    public void onRowDeselect(UnselectEvent event) {
+        this.estado = EstadoCRUD.NUEVO;
+        this.modelo.setRowIndex(-1);
+    }
+
+    public void btnCancelarHandler(ActionEvent ae) {
+        inicializar();
+        this.estado = EstadoCRUD.NUEVO;
+    }
+
+    public void btnAgregarHandler(ActionEvent ae) {
+        if (registro != null) {
+            getFacade().create(registro);
+            inicializar();
+        }
+    }
+
+    public void btnEditarHandler(ActionEvent ae) {
+        if (registro != null) {
+            getFacade().edit(registro);
+            inicializar();
+        }
     }
 
     public void btnEliminarHandler(ActionEvent ae) {
         if (getFacade() != null && registro != null) {
             try {
                 getFacade().remove(registro);
+                inicializar();
             } catch (Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
             }
         }
-    }
-
-    public void btnCancelarHandler(ActionEvent ae) {
-        this.resetRegistro();
     }
 
     public LazyDataModel<T> Modelo() {
@@ -85,8 +109,7 @@ protected T registro;
                             this.setRowCount(getFacade().count());
                             salida = getFacade().findRange(first, pageSize);
                         }
-                       
-                      
+
                     } catch (Exception e) {
                         Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                     }
@@ -114,4 +137,17 @@ protected T registro;
     public void setModelo(LazyDataModel<T> modelo) {
         this.modelo = modelo;
     }
+
+    public List<T> getList() {
+        return List;
+    }
+
+    public EstadoCRUD getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoCRUD estado) {
+        this.estado = estado;
+    }
+
 }
