@@ -22,7 +22,7 @@
                 <p:column headerText="Activo" >
                     <h:outputText value="#{t.activo?'Activo':'Inactivo'}" />
                 </p:column>
-                <p:column headerText="Descripcion" >
+                <p:column headerText="Observaciones" >
                     <h:outputText value="#{t.observaciones}" />
                 </p:column>
                 <p:ajax event="rowSelect" listener="#{frmTipoParte.onRowSelect}" update=":formulariocrud"/>

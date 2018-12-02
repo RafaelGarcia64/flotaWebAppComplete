@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:bt="http://xmlns.jcp.org/jsf/composite/compositeComponents"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Recorrido</title>
+    </h:head>
+    <h:body>
+        <h:form id="tabla">
+            <h1>Recorrido</h1>
+            <h:outputText value="No existen registros en la tabla" rendered="#{empty frmRecorrido.modelo}"/>
+            <p:dataTable var="t" value="#{frmRecorrido.modelo}" paginator="true" rows="5" paginatorPosition="bottom" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         selectionMode="single" id="Recorrido" lazy="true" selection="#{frmRecorrido.registro}" >
+                <p:column headerText="Id Recorrido" >
+                    <h:outputText value="#{t.idRecorrido}" />
+                </p:column>
+                <p:column headerText="Id Reserva" >
+                    <h:outputText value="#{t.idReserva.idReserva}" />
+                </p:column>
+                <p:column headerText="Coordenada inicial" >
+                    <h:outputText value="#{t.coordenadaInicial}" />
+                </p:column>
+                <p:column headerText="Coordenada final" >
+                    <h:outputText value="#{t.coordenadaFinal}" />
+                </p:column>
+                <p:column headerText="Fecha desde" >
+                    <h:outputText value="#{t.fechaDesde}">
+                        <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Fecha hasta" >
+                    <h:outputText value="#{t.fechaHasta}">
+                        <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Hora desde" >
+                    <h:outputText value="#{t.horaDesde}">
+                        <f:convertDateTime dateStyle="full" pattern="h:mm a"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Hora hasta" >
+                    <h:outputText value="#{t.horaHasta}">
+                        <f:convertDateTime dateStyle="full" pattern="h:mm a"/>
+                    </h:outputText>
+                </p:column>
+                <p:ajax event="rowSelect" listener="#{frmRecorrido.onRowSelect}" update=":formulariocrud"/>
+                <p:ajax event="rowUnselect" listener="#{frmRecorrido.onRowDeselect}" update=":formulariocrud"/>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id ="formulariocrud">
+            <h:panelGrid columns="2" id="formulariodatos">
+                <h:outputLabel value="Coordenada inicial" for="txtCoorIni"/>
+                <h:inputText value="#{frmRecorrido.registro.coordenadaInicial}" required="true" id="txtCoorIni"/>
+                <h:outputLabel value="Coordenada final" for="txtCoorFin"/>
+                <h:inputText value="#{frmRecorrido.registro.coordenadaFinal}" required="true" id="txtCoorFin"/>
+                <h:outputLabel value="Fecha desde" />
+                <p:calendar id="fechaDesde" value="#{frmRecorrido.registro.fechaDesde}" showOn="button" />
+                <h:outputLabel value="Fecha hasta" />
+                <p:calendar id="fechaHasta" value="#{frmRecorrido.registro.fechaHasta}" showOn="button" />
+                <h:outputText value="Hora desde"/>
+                <h:inputText value="#{frmRecorrido.registro.horaDesde}" >
+                    <f:convertDateTime dateStyle="full" pattern="h:mm a" />
+                </h:inputText>
+                <h:outputText value="Hora hasta"/>
+                <h:inputText value="#{frmRecorrido.registro.horaHasta}" >
+                    <f:convertDateTime dateStyle="full" pattern="h:mm a" />
+                </h:inputText>
+            </h:panelGrid>
+            <bt:botonesCrud backinBean="#{frmRecorrido}"/>
+        </h:form>
+    </h:body>
+</html>
+
