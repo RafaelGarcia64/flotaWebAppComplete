@@ -6,7 +6,7 @@
 package boundary.beans;
 
 import control.facade.AbstractFacade;
-import control.facade.TipoVehiculoFacade;
+import control.facade.TipoParteFacade;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,40 +15,40 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import org.primefaces.model.LazyDataModel;
-import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.TipoVehiculo;
+import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.TipoParte;
 
 /**
  *
  * @author rafael
  */
-@Named(value = "frmTipoVehiculo")
+@Named(value = "frmTipoParte")
 @ViewScoped
-public class FrmTipoVehiculo extends AbstractFrmBean<TipoVehiculo> implements Serializable {
+public class FrmTipoParte extends AbstractFrmBean<TipoParte> implements Serializable {
 
     @Inject
-    private TipoVehiculoFacade facade;
+    private TipoParteFacade facade;
 
-    @PostConstruct
     @Override
+    @PostConstruct
     public void inicializar() {
-        super.inicializar();
+        super.inicializar(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object clavePorDatos(TipoVehiculo object) {
+    public Object clavePorDatos(TipoParte object) {
         if (object != null) {
-            return object.getIdTipoVehiculo();
+            return object.getIdTipoParte();
         }
         return null;
     }
 
     @Override
-    public TipoVehiculo datosPorClave(String rowKey) {
+    public TipoParte datosPorClave(String rowKey) {
         if (rowKey != null && !rowKey.isEmpty()) {
             try {
                 Integer search = new Integer(rowKey);
-                for (TipoVehiculo tu : this.List) {
-                    if (tu.getIdTipoVehiculo().compareTo(search) == 0) {
+                for (TipoParte tu : this.List) {
+                    if (tu.getIdTipoParte().compareTo(search) == 0) {
                         return tu;
                     }
                 }
@@ -60,19 +60,19 @@ public class FrmTipoVehiculo extends AbstractFrmBean<TipoVehiculo> implements Se
     }
 
     @Override
-    protected AbstractFacade<TipoVehiculo> getFacade() {
+    protected AbstractFacade<TipoParte> getFacade() {
         return facade;
     }
 
     @Override
-    public LazyDataModel<TipoVehiculo> getModelo() {
+    public LazyDataModel<TipoParte> getModelo() {
         return super.getModelo(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public TipoVehiculo getRegistro() {
+    public TipoParte getRegistro() {
         if (this.registro == null) {
-            registro = new TipoVehiculo();
+            registro = new TipoParte();
         }
         return super.getRegistro(); //To change body of generated methods, choose Tools | Templates.
     }

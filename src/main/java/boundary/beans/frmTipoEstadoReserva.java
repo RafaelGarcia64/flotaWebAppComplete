@@ -6,49 +6,49 @@
 package boundary.beans;
 
 import control.facade.AbstractFacade;
-import control.facade.TipoVehiculoFacade;
+import control.facade.TipoEstadoReservaFacade;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import org.primefaces.model.LazyDataModel;
-import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.TipoVehiculo;
+import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.TipoEstadoReserva;
 
 /**
  *
  * @author rafael
  */
-@Named(value = "frmTipoVehiculo")
+@Named(value = "frmTipoEstadoReserva")
 @ViewScoped
-public class FrmTipoVehiculo extends AbstractFrmBean<TipoVehiculo> implements Serializable {
+public class frmTipoEstadoReserva extends AbstractFrmBean<TipoEstadoReserva> implements Serializable {
 
-    @Inject
-    private TipoVehiculoFacade facade;
+    @EJB
+    private TipoEstadoReservaFacade facade;
 
     @PostConstruct
     @Override
     public void inicializar() {
-        super.inicializar();
+        super.inicializar(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object clavePorDatos(TipoVehiculo object) {
+    public Object clavePorDatos(TipoEstadoReserva object) {
         if (object != null) {
-            return object.getIdTipoVehiculo();
+            return object.getIdTipoEstadoReserva();
         }
         return null;
     }
 
     @Override
-    public TipoVehiculo datosPorClave(String rowKey) {
+    public TipoEstadoReserva datosPorClave(String rowKey) {
         if (rowKey != null && !rowKey.isEmpty()) {
             try {
                 Integer search = new Integer(rowKey);
-                for (TipoVehiculo tu : this.List) {
-                    if (tu.getIdTipoVehiculo().compareTo(search) == 0) {
+                for (TipoEstadoReserva tu : this.List) {
+                    if (tu.getIdTipoEstadoReserva().compareTo(search) == 0) {
                         return tu;
                     }
                 }
@@ -60,21 +60,21 @@ public class FrmTipoVehiculo extends AbstractFrmBean<TipoVehiculo> implements Se
     }
 
     @Override
-    protected AbstractFacade<TipoVehiculo> getFacade() {
+    protected AbstractFacade<TipoEstadoReserva> getFacade() {
         return facade;
     }
 
     @Override
-    public LazyDataModel<TipoVehiculo> getModelo() {
-        return super.getModelo(); //To change body of generated methods, choose Tools | Templates.
+    public TipoEstadoReserva getRegistro() {
+        if (this.registro == null) {
+            registro = new TipoEstadoReserva();
+        }
+        return super.getRegistro(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public TipoVehiculo getRegistro() {
-        if (this.registro == null) {
-            registro = new TipoVehiculo();
-        }
-        return super.getRegistro(); //To change body of generated methods, choose Tools | Templates.
+    public LazyDataModel<TipoEstadoReserva> getModelo() {
+        return super.getModelo(); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
