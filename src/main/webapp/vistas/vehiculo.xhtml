@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:bt="http://xmlns.jcp.org/jsf/composite/compositeComponents">
+    <h:head>
+        <title>Vehiculo</title>
+    </h:head>
+    <h:body>
+        <h:form id="tabla">
+            <h1>Vehiculo</h1>
+            <h:outputText value="No existen registros en la tabla" rendered="#{empty frmVehiculo.modelo}"/>
+            <p:dataTable var="t" value="#{frmVehiculo.modelo}" paginator="true" rows="5" paginatorPosition="bottom" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         selectionMode="single" id="Vehiculo" lazy="true" selection="#{frmVehiculo.registro}" >
+                <p:column headerText="Id" >
+                    <h:outputText value="#{t.idVehiculo}" />
+                </p:column>
+                <p:column headerText="Numero de chasis" >
+                    <h:outputText value="#{t.numeroChasis}" />
+                </p:column>
+                <p:column headerText="Numero de chasis vin" >
+                    <h:outputText value="#{t.numeroVin}" />
+                </p:column>
+                <p:column headerText="Modelo" >
+                    <h:outputText value="#{t.idModelo.nombre}" />
+                </p:column>
+                <p:column headerText="Numero de placa" >
+                    <h:outputText value="#{t.numeroPlaca}" />
+                </p:column>
+                <p:column headerText="Asientos" >
+                    <h:outputText value="#{t.asientos}" />
+                </p:column>
+                <p:column headerText="Color" >
+                    <h:outputText value="#{t.color}" />
+                </p:column>
+                <p:ajax event="rowSelect" listener="#{frmVehiculo.onRowSelect}" update=":formulariocrud"/>
+                <p:ajax event="rowUnselect" listener="#{frmVehiculo.onRowDeselect}" update=":formulariocrud"/>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id ="formulariocrud">
+            <h:panelGrid columns="2" id="formulariodatos">
+                <h:outputLabel value="Numero de chasis" for="txtChasis"/>
+                <h:inputText value="#{frmVehiculo.registro.numeroChasis}" required="true" id="txtChasis"/>
+                <h:outputLabel value="Numero de chasis vin" for="txtVin"/>
+                <h:inputText value="#{frmVehiculo.registro.numeroVin}" required="true" id="txtVin"/>
+                <h:outputLabel value="Numero de placa" for="txtPlaca"/>
+                <h:inputText value="#{frmVehiculo.registro.numeroPlaca}" required="true" id="txtPlaca"/>
+                <h:outputLabel value="Numero de asientos" for="txtAsientos"/>
+                <h:inputText value="#{frmVehiculo.registro.asientos}" required="true" id="txtAsientos"/>
+                <h:outputLabel value="Color" for="txtColor"/>
+                <h:inputText value="#{frmVehiculo.registro.color}" required="true" id="txtColor"/>
+            </h:panelGrid>
+            <bt:botonesCrud backinBean="#{frmVehiculo}"/>
+        </h:form>
+    </h:body>
+</html>
+

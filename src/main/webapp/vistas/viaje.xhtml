@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:bt="http://xmlns.jcp.org/jsf/composite/compositeComponents"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Viaje</title>
+    </h:head>
+    <h:body>
+        <h:form id="tabla">
+            <h1>Viaje</h1>
+            <h:outputText value="No existen registros en la tabla" rendered="#{empty frmViaje.modelo}"/>
+            <p:dataTable var="t" value="#{frmViaje.modelo}" paginator="true" rows="5" paginatorPosition="bottom" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         selectionMode="single" id="Viaje" lazy="true" selection="#{frmViaje.registro}" rendered="#{not empty frmViaje.modelo}">
+                <p:column headerText="Cliente" >
+                    <h:outputText value="#{t.idReserva}" />
+                </p:column>
+                <p:column headerText="Fecha desde" >
+                    <h:outputText value="#{t.fechaDesde}">
+                        <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Fecha hasta" >
+                    <h:outputText value="#{t.fechaHasta}">
+                        <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Kilometros" >
+                    <h:outputText value="#{t.kilometros}" />
+                </p:column>
+                <p:column headerText="Motorista" >
+                    <h:outputText value="#{t.motorista}" />
+                </p:column>
+                <p:column headerText="Hora salida" >
+                    <h:outputText value="#{t.horaSalida}">
+                        <f:convertDateTime dateStyle="full" pattern="h:mm a"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Hora llegada" >
+                    <h:outputText value="#{t.horaLlegada}">
+                        <f:convertDateTime dateStyle="full" pattern="h:mm a"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Observaciones" >
+                    <h:outputText value="#{t.observaciones}" />
+                </p:column>
+                <p:ajax event="rowSelect" listener="#{frmViaje.onRowSelect}" update=":formulariocrud"/>
+                <p:ajax event="rowUnselect" listener="#{frmViaje.onRowDeselect}" update=":formulariocrud"/>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id ="formulariocrud">
+            <h:panelGrid columns="2" id="formulariodatos">
+                <h:outputLabel value="Fecha desde" />
+                <p:calendar id="fechaDesde" value="#{frmViaje.registro.fechaDesde}" showOn="button" />
+                <h:outputLabel value="Fecha hasta" />
+                <p:calendar id="fechaHasta" value="#{frmViaje.registro.fechaHasta}" showOn="button" />
+                <h:outputLabel value="Kilometros" for="txtKilometros"/>
+                <h:inputText value="#{frmViaje.registro.kilometros}" required="true" id="txtKilometros"/>
+                <h:outputLabel value="Motorista" for="txtMotorista"/>
+                <h:inputText value="#{frmViaje.registro.motorista}" required="true" id="txtMotorista"/>
+                <h:outputText value="Hora salida"/>
+                <h:inputText value="#{frmViaje.registro.horaSalida}" >
+                    <f:convertDateTime dateStyle="full" pattern="h:mm a" />
+                </h:inputText>
+                <h:outputText value="Hora llegada"/>
+                <h:inputText value="#{frmViaje.registro.horaLlegada}" >
+                    <f:convertDateTime dateStyle="full" pattern="h:mm a" />
+                </h:inputText>
+                <h:outputLabel value="Observaciones" for="txtObservaciones"/>
+                <h:inputTextarea value="#{frmViaje.registro.observaciones}" id="txtObservaciones"/>
+            </h:panelGrid>
+            <bt:botonesCrud backinBean="#{frmViaje}"/>
+        </h:form>
+    </h:body>
+</html>
+
