@@ -36,7 +36,7 @@
                 <h:inputText value="#{frmMarca.registro.nombre}" required="true" id="txtNombre"/>
                 <h:outputLabel value="Activo" for="chActivo"/>
                 <h:selectBooleanCheckbox id="chActivo" required="true" value="#{frmMarca.registro.activo}"></h:selectBooleanCheckbox>
-                <h:outputLabel value="Observaciones" for="txtObservaciones"/>
+                <h:outputLabel value="Descripcion" for="txtObservaciones"/>
                 <h:inputTextarea value="#{frmMarca.registro.descripcion}" id="txtObservaciones"/>
             </h:panelGrid>
             <bt:botonesCrud backinBean="#{frmMarca}"/>
