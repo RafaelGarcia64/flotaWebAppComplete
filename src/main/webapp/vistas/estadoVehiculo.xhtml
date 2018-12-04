@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:bt="http://xmlns.jcp.org/jsf/composite/compositeComponents"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Estado Vehiculo</title>
+    </h:head>
+    <h:body>
+        <h:form id="tabla">
+            <h1>Estado Vehiculo</h1>
+            <h:outputText value="No existen registros en la tabla" rendered="#{empty frmEstadoVehiculo.modelo}"/>
+            <p:dataTable var="t" value="#{frmEstadoVehiculo.modelo}" paginator="true" rows="5" paginatorPosition="bottom" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         selectionMode="single" id="EstadoVehiculo" lazy="true" selection="#{frmEstadoVehiculo.registro}" rendered="#{not empty frmEstadoVehiculo.modelo}">
+                <p:column headerText="Id" >
+                    <h:outputText value="#{t.idEstadoVehiculo}" />
+                </p:column>
+                <p:column headerText="Tipo estado vehiculo" >
+                    <h:outputText value="#{t.idTipoEstadoVehiculo.nombre}" />
+                </p:column>
+                <p:column headerText="Modelo ehiculo" >
+                    <h:outputText value="#{t.idVehiculo.idModelo.nombre +' :'+t.idVehiculo.numeroPlaca}" />
+                </p:column>
+                <p:column headerText="Estado Actual" >
+                    <h:outputText value="#{t.estadoActual?'Activo':'Inactivo'}" />
+                </p:column>
+                <p:column headerText="Fecha" >
+                    <h:outputText value="#{t.fecha}">
+                        <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                    </h:outputText>
+                </p:column>
+                <p:ajax event="rowSelect" listener="#{frmEstadoVehiculo.onRowSelect}" update=":formulariocrud"/>
+                <p:ajax event="rowUnselect" listener="#{frmEstadoVehiculo.onRowDeselect}" update=":formulariocrud"/>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id ="formulariocrud">
+            <h:panelGrid columns="2" id="formulariodatos">
+                <h:outputLabel value="Tipo estado vehiculo" for="cbxTEstadoVehiculo"/>
+                <p:selectOneMenu id="TEstadoVehiculo" value="#{frmEstadoVehiculo.registro.idTipoEstadoVehiculo}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemLabel="Seleccione un tipo de estado vehiculo"/>
+                    <f:selectItems value="#{frmEstadoVehiculo.listTipoEstadoV}" var="EstadoVehiculo" itemValue="#{EstadoVehiculo}" itemLabel="#{EstadoVehiculo.nombre}"/>
+                </p:selectOneMenu>
+                <h:outputLabel value="Tipo estado vehiculo" for="cbxTEstadoVehiculo"/>
+                <p:selectOneMenu id="Vehiculo" value="#{frmEstadoVehiculo.registro.idVehiculo}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemLabel="Seleccione un vehiculo"/>
+                    <f:selectItems value="#{frmEstadoVehiculo.listVehiculo}" var="Vehiculo" itemValue="#{Vehiculo}" itemLabel="#{Vehiculo.idModelo.nombre+' :'+Vehiculo.numeroPlaca}"/>
+                </p:selectOneMenu>
+                <h:outputLabel value="Fecha" />
+                <p:calendar id="fecha" value="#{frmEstadoVehiculo.registro.fecha}" showOn="button" />
+                <h:outputLabel value="Estado Actual" for="chActivo"/>
+                <h:selectBooleanCheckbox id="chActivo" required="true" value="#{frmEstadoVehiculo.registro.estadoActual}"></h:selectBooleanCheckbox>
+            </h:panelGrid>
+            <bt:botonesCrud backinBean="#{frmEstadoVehiculo}"/>
+        </h:form>
+    </h:body>
+</html>
+

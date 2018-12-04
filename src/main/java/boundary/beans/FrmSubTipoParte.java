@@ -7,7 +7,9 @@ package boundary.beans;
 
 import control.facade.AbstractFacade;
 import control.facade.SubTipoParteFacade;
+import control.facade.TipoParteFacade;
 import java.io.Serializable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -16,6 +18,7 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import org.primefaces.model.LazyDataModel;
 import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.SubTipoParte;
+import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.TipoParte;
 
 /**
  *
@@ -26,12 +29,18 @@ import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.SubTipoParte;
 public class FrmSubTipoParte extends AbstractFrmBean<SubTipoParte> implements Serializable {
 
     @EJB
-    private SubTipoParteFacade facade;
+    private SubTipoParteFacade subTipoParteFacade;
+
+    @EJB
+    private TipoParteFacade tipoParteFacade;
+
+    private List<TipoParte> listaTipoParte;
 
     @PostConstruct
     @Override
     public void inicializar() {
-        super.inicializar(); //To change body of generated methods, choose Tools | Templates.
+        super.inicializar();
+        listaTipoParte = tipoParteFacade.findAll();
     }
 
     @Override
@@ -61,7 +70,7 @@ public class FrmSubTipoParte extends AbstractFrmBean<SubTipoParte> implements Se
 
     @Override
     protected AbstractFacade<SubTipoParte> getFacade() {
-        return facade;
+        return subTipoParteFacade;
     }
 
     @Override
@@ -77,4 +86,7 @@ public class FrmSubTipoParte extends AbstractFrmBean<SubTipoParte> implements Se
         return super.getModelo(); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public List<TipoParte> getListaTipoParte() {
+        return listaTipoParte;
+    }
 }
