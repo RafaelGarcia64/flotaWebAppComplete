@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(control.rest.MarcaREST.class);
+        resources.add(control.rest.RecorridoREST.class);
         resources.add(control.rest.TipoEstadoReservaREST.class);
         resources.add(control.rest.TipoEstadoVehiculoREST.class);
         resources.add(control.rest.TipoParteREST.class);
