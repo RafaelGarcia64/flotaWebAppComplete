@@ -20,22 +20,21 @@
                 <p:column headerText="Tipo estado vehiculo" >
                     <h:outputText value="#{t.idTipoEstadoVehiculo.nombre}" />
                 </p:column>
-                <p:column headerText="Modelo ehiculo" >
-                    <h:outputText value="#{t.idVehiculo.idModelo.nombre +' :'+t.idVehiculo.numeroPlaca}" />
-                </p:column>
-                <p:column headerText="Estado Actual" >
-                    <h:outputText value="#{t.estadoActual?'Activo':'Inactivo'}" />
+                <p:column headerText="Modelo : placa" >
+                    <h:outputText value="#{t.idVehiculo.idModelo.nombre} : #{t.idVehiculo.numeroPlaca}" />
                 </p:column>
                 <p:column headerText="Fecha" >
                     <h:outputText value="#{t.fecha}">
                         <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
                     </h:outputText>
                 </p:column>
+                <p:column headerText="Estado Actual" >
+                    <h:outputText value="#{t.estadoActual?'Activo':'Inactivo'}" />
+                </p:column>
                 <p:ajax event="rowSelect" listener="#{frmEstadoVehiculo.onRowSelect}" update=":formulariocrud"/>
                 <p:ajax event="rowUnselect" listener="#{frmEstadoVehiculo.onRowDeselect}" update=":formulariocrud"/>
             </p:dataTable>
         </h:form>
-
         <h:form id ="formulariocrud">
             <h:panelGrid columns="2" id="formulariodatos">
                 <h:outputLabel value="Tipo estado vehiculo" for="cbxTEstadoVehiculo"/>
@@ -46,7 +45,7 @@
                 <h:outputLabel value="Tipo estado vehiculo" for="cbxTEstadoVehiculo"/>
                 <p:selectOneMenu id="Vehiculo" value="#{frmEstadoVehiculo.registro.idVehiculo}" converter="omnifaces.SelectItemsConverter">
                     <f:selectItem itemLabel="Seleccione un vehiculo"/>
-                    <f:selectItems value="#{frmEstadoVehiculo.listVehiculo}" var="Vehiculo" itemValue="#{Vehiculo}" itemLabel="#{Vehiculo.idModelo.nombre+' :'+Vehiculo.numeroPlaca}"/>
+                    <f:selectItems value="#{frmEstadoVehiculo.listVehiculo}" var="Vehiculo" itemValue="#{Vehiculo}" itemLabel="#{Vehiculo.idModelo.nombre} : #{Vehiculo.numeroPlaca}"/>
                 </p:selectOneMenu>
                 <h:outputLabel value="Fecha" />
                 <p:calendar id="fecha" value="#{frmEstadoVehiculo.registro.fecha}" showOn="button" />

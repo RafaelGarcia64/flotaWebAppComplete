@@ -32,22 +32,21 @@ public class FrmEstadoVehiculo extends AbstractFrmBean<EstadoVehiculo> implement
 
     @EJB
     private VehiculoFacade vehiculoFacade;
-
     @EJB
     private TipoEstadoVehiculoFacade tipoEstadoVehiculoFacade;
-
     @EJB
     private EstadoVehiculoFacade estadoVehiculoFacade;
 
-    private List<TipoEstadoVehiculo> listTipoEstadoV;
-    private List<Vehiculo> listVehiculo;
+    List<TipoEstadoVehiculo> listTipoEstadoV;
+    List<Vehiculo> listVehiculo;
 
-    @PostConstruct
     @Override
+    @PostConstruct
+
     public void inicializar() {
         super.inicializar();
-//        listTipoEstadoV = tipoEstadoVehiculoFacade.findAll();
-//        listVehiculo = vehiculoFacade.findAll();
+        listTipoEstadoV = tipoEstadoVehiculoFacade.findAll();
+        listVehiculo = vehiculoFacade.findAll();
     }
 
     @Override
