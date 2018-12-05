@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Guia 10</title>
+        <link rel="stylesheet" href="../resources/css/bootstrap.min.css" ></link>
+        <link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css" ></link>
+    </h:head>
+    <body>
+        <center>
+            <h3 title="Carné">Tipo Estado Reserva</h3>
+        </center>
+        <div class="container m-y-3">
+            <div class="m-t-3 text-capitalize" style="font-size: 15px;">
+                <table class="table" title="Tabla datos Tipo Estado Reserva">
+                    <thead>
+                        <tr>
+                            <th scope="col">IdTipoEstadoReserva</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Activo</th>
+                            <th scope="col">IndicaAprovacion</th>
+                            <th scope="col">Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contenido">
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-danger" title="Obtener los siguientes registros" onclick="findAll()">Obtener mas registros</button>
+        </div>
+
+
+        <div class="container m-y-3">
+            <form id="crud">
+                <h3 title="Entidad" >Mantenimiento de Tipo Estado Reserva</h3><br/>
+                <div class="form-group">
+                    <label for="idTipoEstadoReserva">id Tipo Estado Reserva </label><br/>
+                    <input  type="number" name="id" class="form-control" title="Id Tipo Estado Reserva" id="idTipo" value="" style="border-bottom-width: medium"/>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre </label><br/>
+                    <input type="text" class="form-control" id="nom" title="Nombre" placeholder="Nombre" style="border-bottom-width: medium"/>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" title="Activo" class="form-check-input" id="act"/>
+                    <label class="form-check-label" title="Activo" for="activo"> Activo </label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" title="Indica Aprobacion" class="form-check-input" id="ind"/>
+                    <label class="form-check-label" title="Indica Aprobacion" for="indicaAprobacion"> Indica Aprobación </label>
+                </div>
+                <div class="form-group">
+                    <label for="observaciones">Observaciones </label><br/>
+                    <textarea type="text" title="Observaciones" class="form-control"  id="obs" style="border-bottom-width: medium" /><br/>
+                </div>
+                <button type="submit" class="btn btn-group" title="Guardar registro" onclick="funciPost()"
+                        style="background-color: #0074d9 ; color: white">Crear</button>
+
+                <button type="submit" class="btn btn-group" title="Actualizar Pagina antes de modificar" onclick="funciPut()"
+                        style="background-color: #5cb85c ; color: white">Modificar</button>
+
+                <button type="submit" class="btn btn-group" title="Eliminar registro" onclick="Eliminar()"
+                        style="background-color: #c9302c; color: white">Eliminar</button>
+
+                <button type="reset" class="btn btn-group" title="Cancelar proceso" style="background-color: #687077;  color: white">Cancelar/Limpiar</button>
+            </form>
+
+            <script src="../resources/js/control/Tabla.js" />
+            <script src="../resources/js/boundary/Post.js"/>
+            <script src="../resources/js/boundary/Put.js"/>
+            <script src="../resources/js/boundary/Delete.js"/>
+            <div class="mt-3" id="respuesta">
+
+            </div>
+        </div>
+    </body>
+</html>
+
