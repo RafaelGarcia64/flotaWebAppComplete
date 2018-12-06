@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Guia 10</title>
+        <title>Tipo Estado Reserva</title>
         <link rel="stylesheet" href="../resources/css/bootstrap.min.css" ></link>
         <link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css" ></link>
     </h:head>
@@ -29,8 +29,6 @@
             </div>
             <button class="btn btn-danger" title="Obtener los siguientes registros" onclick="findAll()">Obtener mas registros</button>
         </div>
-
-
         <div class="container m-y-3">
             <form id="crud">
                 <h3 title="Entidad" >Mantenimiento de Tipo Estado Reserva</h3><br/>
@@ -56,22 +54,17 @@
                 </div>
                 <button type="submit" class="btn btn-group" title="Guardar registro" onclick="funciPost()"
                         style="background-color: #0074d9 ; color: white">Crear</button>
-
                 <button type="submit" class="btn btn-group" title="Actualizar Pagina antes de modificar" onclick="funciPut()"
                         style="background-color: #5cb85c ; color: white">Modificar</button>
-
                 <button type="submit" class="btn btn-group" title="Eliminar registro" onclick="Eliminar()"
                         style="background-color: #c9302c; color: white">Eliminar</button>
-
                 <button type="reset" class="btn btn-group" title="Cancelar proceso" style="background-color: #687077;  color: white">Cancelar/Limpiar</button>
             </form>
-
             <script src="../resources/js/control/Tabla.js" />
             <script src="../resources/js/boundary/Post.js"/>
             <script src="../resources/js/boundary/Put.js"/>
             <script src="../resources/js/boundary/Delete.js"/>
             <div class="mt-3" id="respuesta">
-
             </div>
         </div>
     </body>
