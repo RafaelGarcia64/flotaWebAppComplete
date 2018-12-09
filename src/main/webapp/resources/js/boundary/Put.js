@@ -10,10 +10,7 @@ var observacion = document.getElementById("obs");
 function funciPut() {
     document.getElementById("crud").addEventListener("submit", function(e) {
         e.preventDefault();
-        console.log('Haz hecho un click');
-
         let data = {idTipoEstadoReserva: id.value, activo: activo.checked, indicaAprobacion: indica.checked, nombre: nombres.value, observaciones: observacion.value};
-        console.log(data);
         doPut(url, data);
 
     });

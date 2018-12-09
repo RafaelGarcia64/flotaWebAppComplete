@@ -9,10 +9,7 @@ var observacion = document.getElementById("obs");
 function funciPost() {
     document.getElementById("crud").addEventListener("submit", function(e) {
         e.preventDefault();
-        console.log('Haz hecho un click');
-
         let data = {activo: activo.checked, indicaAprobacion: indica.checked, nombre: nombres.value, observaciones: observacion.value};
-        console.log(data);
         doPost(url, data);
 
     });
